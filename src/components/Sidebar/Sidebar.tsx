@@ -19,7 +19,11 @@ const Sidebar: React.FC<IProps> = ({ editor }) => {
   const workerRef = useRef<Worker>(null);
 
   useEffect(() => {
-    workerRef.current = new Worker(new URL("../../utils/worker.ts", import.meta.url));
+    workerRef.current = new Worker(new URL("/src/utils/worker.ts", import.meta.url));
+
+    workerRef.current.onmessage = (event) => {
+      console.log(event.data)
+    };
 
     return () => {
       workerRef.current?.terminate();

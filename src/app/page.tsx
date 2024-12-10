@@ -4,6 +4,7 @@ import { Editor, OnMount } from "@monaco-editor/react";
 import { useRef } from "react";
 import { editor } from "monaco-editor";
 import Sidebar from "@/components/Sidebar/Sidebar";
+import dynamic from "next/dynamic";
 
 export default function Home() {
   const codeRef = useRef<editor.IStandaloneCodeEditor>(null);
@@ -12,17 +13,18 @@ export default function Home() {
     codeRef.current = editor;
   };
 
-  const onClick = () => {
-    if (codeRef.current) {
-      const code = codeRef.current.getValue();
-      console.log(code);
-    }
-  };
-
   return (
     <div className="flex-1 flex">
       <Sidebar editor={codeRef} />
-      <Editor height="100vh" language="javascript" theme="vs-dark" onMount={onCodeMount} />
+      <Editor
+        height="100vh"
+        language="javascript"
+        theme="vs-dark"
+        onMount={onCodeMount}
+        options={{
+          bracketPairColorization: { enabled: true },
+        }}
+      />
     </div>
   );
 }
