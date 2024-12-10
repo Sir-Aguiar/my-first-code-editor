@@ -1,0 +1,11 @@
+.side_container {
+  @apply flex flex-col items-center gap-8 py-2;
+  @apply w-16;
+  @apply bg-zinc-800;
+}
+
+.sidebar_button {
+  @apply flex items-center justify-center;
+  @apply enabled:hover:brightness-125 enabled:hover:scale-90 transition-all rounded-md;
+  @apply disabled:opacity-70 disabled:cursor-not-allowed disabled:scale-75;
+}
