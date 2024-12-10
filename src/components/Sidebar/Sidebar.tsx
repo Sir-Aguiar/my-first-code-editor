@@ -13,47 +13,21 @@ import { Divider } from "@mui/material";
 
 export interface IProps {
   editor: RefObject<editor.IStandaloneCodeEditor | null>;
+  onRunCode: () => void;
+  onStopCode: () => void;
+  onSaveCode: () => void;
+  onSaveAsCode: () => void;
+  onUploadCode: () => void;
 }
 
-const Sidebar: React.FC<IProps> = ({ editor }) => {
-  const workerRef = useRef<Worker>(null);
-
-  useEffect(() => {
-    workerRef.current = new Worker(new URL("/src/utils/worker.ts", import.meta.url));
-
-    workerRef.current.onmessage = (event) => {
-      console.log(event.data)
-    };
-
-    return () => {
-      workerRef.current?.terminate();
-    };
-  }, []);
-
-  const canStop = false;
-
-  const onRunCode = () => {
-    if (editor.current) {
-      const code = editor.current.getValue();
-      workerRef.current?.postMessage({ code });
-    }
-  };
-
-  const onStopCode = () => {};
-
-  const onSaveCode = () => {};
-
-  const onSaveAsCode = () => {};
-
-  const onUploadCode = () => {};
-
+const Sidebar: React.FC<IProps> = ({ editor, onRunCode, onSaveAsCode, onSaveCode, onStopCode, onUploadCode }) => {
   return (
     <aside className={`${styles.side_container}`}>
       <button className={`${styles.sidebar_button}`} onClick={onRunCode}>
         <PlayArrowOutlinedIcon fontSize="large" className="fill-[#2CA58D]" />
       </button>
 
-      <button className={`${styles.sidebar_button}`} disabled={!canStop} onClick={onStopCode}>
+      <button className={`${styles.sidebar_button}`} onClick={onStopCode}>
         <CropSquareOutlinedIcon fontSize="large" className="fill-[#A30015]" />
       </button>
 
