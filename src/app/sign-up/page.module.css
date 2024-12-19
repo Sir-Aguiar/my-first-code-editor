@@ -1,0 +1,8 @@
+.form_container {
+  @apply flex flex-col flex-1 gap-4 p-4 items-center justify-center;
+  @apply w-full max-w-xl min-w-80 mx-auto;
+}
+
+.form_row {
+  @apply w-full flex flex-col sm:flex-row gap-4;
+}
