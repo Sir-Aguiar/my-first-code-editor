@@ -6,13 +6,28 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { Button } from "@mui/material";
 import RHFInputField from "@/components/RHFInputs/RHFInputField/RHFInputField";
 import { CreateUserSchema, ICreateUserDTO } from "@/dtos/user";
+import { createUser, getUsers } from "@/services/user-service";
+import { useEffect } from "react";
 
 export default function Page() {
   const { control, formState, handleSubmit } = useForm<ICreateUserDTO>({
     resolver: yupResolver(CreateUserSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+      passwordConfirmation: "",
+      name: "",
+      username: "",
+    },
   });
 
-  const onSubmit = async (data: ICreateUserDTO) => {};
+  const onSubmit = async ({ email, name, password, username }: ICreateUserDTO) => {
+    try {
+      const response = await createUser({ email, name, password, username });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form_container}>

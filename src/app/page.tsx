@@ -18,7 +18,9 @@ export default function Home() {
   const [codeTabs, setCodeTabs] = useState<ICodeTab[]>([]);
   const [activeTab, setActiveTab] = useState<string>("start");
   const [codeSessions, setCodeSessions] = useState();
+
   const router = useRouter();
+
   const handleTabChange: MouseEventHandler = (event) => {
     const tabId = (event.target as HTMLElement).id;
     setActiveTab(tabId);

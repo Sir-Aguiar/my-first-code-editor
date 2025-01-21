@@ -59,7 +59,7 @@ const CodeTab: React.FC<ICodeTab> = ({ tabId, title, onDisplay = true }) => {
   const onUploadCode = () => {};
 
   return (
-    <div className={`w-full h-[92vh] ${onDisplay ? "flex" : "hidden"}`}>
+    <div className={`flex-1 w-full h-full ${onDisplay ? "flex" : "hidden"}`}>
       <Sidebar
         editor={codeRef}
         onRunCode={onRunCode}
@@ -69,7 +69,7 @@ const CodeTab: React.FC<ICodeTab> = ({ tabId, title, onDisplay = true }) => {
         onUploadCode={onUploadCode}
       />
       <div className="flex-1 w-full h-full flex flex-col">
-        <Editor height="100%" language="javascript" theme="vs-dark" onMount={onCodeMount} />
+        <Editor height="66vh" language="javascript" theme="vs-dark" onMount={onCodeMount} />
         <Terminal logs={logs} />
       </div>
     </div>
