@@ -14,13 +14,48 @@ enum Role {
 }
 
 model User {
-  userId   Int    @id @default(autoincrement())
-  email    String @unique @db.VarChar(255)
-  name     String @db.VarChar(255)
-  username String @unique @db.VarChar(15)
-  password String @db.Text
-  role     Role   @default(USER)
+  userId   Int        @id @default(autoincrement())
+  email    String     @unique @db.VarChar(255)
+  name     String     @db.VarChar(255)
+  username String     @unique @db.VarChar(15)
+  password String     @db.Text
+  role     Role       @default(USER)
+  Template Template[]
 }
 
+enum TestInputType {
+  INTEIRO
+  REAL
+  TEXTO
+}
 
+enum TestOutputType {
+  INTEIRO
+  REAL
+  TEXTO
+}
 
+model Template {
+  templateId Int        @id @default(autoincrement())
+  statement  String     @db.Text
+  creatorId  Int
+  TestCase   TestCase[]
+  creator    User       @relation(fields: [creatorId], references: [userId])
+}
+
+model TestCase {
+  testCaseId        Int            @id @default(autoincrement())
+  templateId        Int
+  expectedValue     String
+  expectedValueType TestOutputType
+  template          Template       @relation(fields: [templateId], references: [templateId])
+  TestInput         TestInput[]
+}
+
+model TestInput {
+  testInputId Int           @id @default(autoincrement())
+  type        TestInputType
+  value       String
+  testCaseId  Int
+  testCase    TestCase      @relation(fields: [testCaseId], references: [testCaseId])
+}
