@@ -14,7 +14,6 @@ export const getUsers = async () => {
 export const createUser = async (data: Omit<ICreateUserDTO, "passwordConfirmation">) => {
   try {
     const user = await prisma.user.create({ data });
-    return { ...user, password: undefined } as any;
   } catch (error) {
     if (error instanceof PrismaClientKnownRequestError) {
       if (error.code === "P2002") {
